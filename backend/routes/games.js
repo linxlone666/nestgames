@@ -13,6 +13,8 @@ router.get("/:slug", (req, res) => {
     "SELECT * FROM games WHERE slug = ?",
     [req.params.slug],
     (err, row) => {
+      if (err) return res.status(500).json({ error: err.message });
+      if (!row) return res.status(404).json({ error: "Game not found" });
       res.json(row);
     }
   );

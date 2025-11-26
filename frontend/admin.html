@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form id="game-form">
+      <input name="slug" placeholder="slug" required />
+      <input name="name" placeholder="name" required />
+      <input name="price" placeholder="price" required />
+      <textarea name="description" placeholder="description"></textarea>
+      <input name="image" placeholder="image URL" />
+      <button type="submit">Add Game</button>
+    </form>
+
+    <script>
+      document.getElementById("game-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData.entries());
+
+        fetch("/api/games", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        })
+          .then((res) => res.json())
+          .then((result) => alert("Game added! ID: " + result.id));
+      });
+    </script>
+  </body>
+</html>
