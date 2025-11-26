@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS games (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    slug TEXT UNIQE,
+    slug TEXT UNIQUE,
     name TEXT,
     price TEXT,
     description TEXT,
@@ -25,4 +25,10 @@ CREATE TABLE IF NOT EXISTS orders (
     created_at TEXT DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (game_id) REFERENCES games(id),
     FOREIGN KEY (key_id) REFERENCES keys(id)
+);
+
+CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT UNIQUE,
+    password TEXT
 );

@@ -32,4 +32,20 @@ router.post("/", (req, res) => {
   );
 });
 
+router.delete("/:slug", (req, res) => {
+  const slug = req.params.slug;
+
+  db.run("DELETE FROM games WHERE slug = ?", [slug], function (err) {
+    if (err) {
+      return res.json({ success: false, message: err.message });
+    }
+
+    if (this.changes === 0) {
+      return res.json({ success: false, message: "Game not found" });
+    }
+
+    res.json({ success: true });
+  });
+});
+
 module.exports = router;

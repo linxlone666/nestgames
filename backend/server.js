@@ -1,18 +1,14 @@
 const express = require("express");
-const cors = require("cors");
 const app = express();
-const port = 3000;
-const path = require("path");
+const gamesRouter = require("./routes/games");
+const keysRouter = require("./routes/keys");
+const ordersRouter = require("./routes/orders");
 
-app.use(express.static(path.join(__dirname, "../frontend")));
-app.use(cors());
 app.use(express.json());
+app.use("/api/games", gamesRouter);
+app.use("/api/keys", keysRouter);
+app.use("/api/orders", ordersRouter);
+
 app.use(express.static("../frontend"));
 
-app.use("/api/games", require("./routes/games"));
-app.use("/api/keys", require("./routes/keys"));
-app.use("/api/orders", require("./routes/orders"));
-
-app.listen(3000, () =>
-  console.log(`Server running on http://localhost:${port}`)
-);
+app.listen(3000, () => console.log("Server running on http://localhost:3000"));
